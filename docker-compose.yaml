@@ -1,0 +1,32 @@
+version: '3.9'
+services:
+  backend-ambassador:
+    build: .
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0.33
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ambassador_db
+      MYSQL_USER: emp
+      MYSQL_PASSWORD: tiptop123
+    volumes:
+      - .dbdata:/var/lib/mysql
+    ports:
+      - 33066:3306
+    depends_on:
+      - adminer
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+  
