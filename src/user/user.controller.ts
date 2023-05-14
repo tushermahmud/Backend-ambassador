@@ -1,4 +1,5 @@
-import { ClassSerializerInterceptor, Controller, Get, UseInterceptors } from '@nestjs/common';
+import { ClassSerializerInterceptor, Controller, Get, UseGuards, UseInterceptors } from '@nestjs/common';
+import { AuthGuard } from 'src/auth/auth.guard';
 import { UserService } from './user.service';
 
 @Controller()
@@ -6,6 +7,7 @@ export class UserController {
 
     constructor(private readonly userService:UserService){
     }
+    @UseGuards(AuthGuard)
     @UseInterceptors(ClassSerializerInterceptor)
     @Get('admin/ambassadors')
     async ambassadors () {
