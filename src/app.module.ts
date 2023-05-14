@@ -12,6 +12,9 @@ import { Product } from './product/product.entity';
 import { OrderModule } from './order/order.module';
 import { Order } from './order/order.entity';
 import { OrderItem } from './order/order-item.entity';
+import { LinkModule } from './link/link.module';
+import { Link } from './link/link.entity';
+import { SharedModule } from './shared/shared.module';
 
 @Module({
   imports: [
@@ -22,13 +25,15 @@ import { OrderItem } from './order/order-item.entity';
       username: 'emp',
       password: 'tiptop123',
       database: 'ambassador_db',
-      entities: [User, Product, Order, OrderItem],
+      entities: [User, Product, Order, OrderItem, Link],
       synchronize: true,
     }),
     UserModule,
     AuthModule,
     ProductModule,
     OrderModule,
+    LinkModule,
+    SharedModule,
   ],
   controllers: [AppController, UserController],
   providers: [AppService, UserService],

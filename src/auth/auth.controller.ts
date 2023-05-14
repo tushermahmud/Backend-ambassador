@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, NotFoundException, Post, Res, Req, UseInterceptors, ClassSerializerInterceptor, UnauthorizedException, UseGuards, Put } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post, Res, Req, UseInterceptors, ClassSerializerInterceptor, UnauthorizedException, UseGuards, Put } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { RegisterDto } from './dtos/register.dto';
 import * as bcrypt from 'bcryptjs';
@@ -22,7 +22,7 @@ export class AuthController {
         }
         const salt = await bcrypt.genSalt();
         const hash = await bcrypt.hash(body.password,salt);
-        return this.userService.save({
+        return await this.userService.save({
             ...data,
             is_ambassador:false,
             password:hash
@@ -35,9 +35,9 @@ export class AuthController {
         @Body() body:LoginDto,
         @Res({ passthrough: true }) res: Response,
     ){
-        const token = await this.authService.login(body);        
-        return res.cookie('token',token,{httpOnly:true,secure:false,sameSite: 'lax',expires: new Date(Date.now() + 1 * 24 * 60 * 1000),
-        }).send({message:"success"});
+        const token = await this.authService.login(body); 
+        res.cookie('token',token,{httpOnly:true});
+        return {message:"success"}
         
     }
 

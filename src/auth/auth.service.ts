@@ -12,7 +12,7 @@ export class AuthService {
 
     }
 
-    async login(data):Promise<string>{
+    async login(data){
         const {email, password} = data;
         const userExists = await this.userService.findOne(email);
         if(!userExists){
