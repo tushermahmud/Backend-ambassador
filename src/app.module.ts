@@ -10,6 +10,8 @@ import { AuthModule } from './auth/auth.module';
 import { ProductModule } from './product/product.module';
 import { Product } from './product/product.entity';
 import { OrderModule } from './order/order.module';
+import { Order } from './order/order.entity';
+import { OrderItem } from './order/order-item.entity';
 
 @Module({
   imports: [
@@ -20,7 +22,7 @@ import { OrderModule } from './order/order.module';
       username: 'emp',
       password: 'tiptop123',
       database: 'ambassador_db',
-      entities: [User, Product],
+      entities: [User, Product, Order, OrderItem],
       synchronize: true,
     }),
     UserModule,

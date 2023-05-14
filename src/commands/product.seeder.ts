@@ -1,7 +1,6 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "../app.module";
 import { faker } from '@faker-js/faker';
-import * as bcrypt from 'bcryptjs';
 import { ProductService } from "../product/product.service";
 
 
