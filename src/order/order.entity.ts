@@ -1,5 +1,6 @@
 import { Exclude, Expose } from "class-transformer";
-import { Link } from "src/link/link.entity";
+import { Link } from "../link/link.entity";
+import { User } from "../user/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { OrderItem } from "./order-item.entity";
 
@@ -56,16 +57,25 @@ export class Order{
     })
     link:Link;
 
+    @ManyToOne(()=>User, user=>user.orders, {
+        createForeignKeyConstraints:false
+    })
+    user:User;
+
     @OneToMany(()=>OrderItem, orderItem=> orderItem.order)
     order_items:OrderItem[];
 
     @Expose()
-    get name(){
+    get name():string{
         return `${this.firstName} ${this.lastName}`
     }
 
     @Expose()
-    get total(){
+    get total():number{
         return this.order_items.reduce((total, item)=>total+item.admin_revenue,0)
+    }
+
+    get ambassador_revenue():number{
+        return this.order_items.reduce((total, item)=>total+item.ambassador_revenue,0)
     }
 }

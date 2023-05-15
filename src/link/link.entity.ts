@@ -1,6 +1,6 @@
-import { Order } from "src/order/order.entity";
-import { Product } from "src/product/product.entity";
-import { User } from "src/user/user.entity";
+import { Order } from "../order/order.entity";
+import { Product } from "../product/product.entity";
+import { User } from "../user/user.entity";
 import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()

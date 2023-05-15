@@ -3,7 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from './product.entity';
 import { ProductController } from './product.controller';
 import { ProductService } from './product.service';
-import { SharedModule } from 'src/shared/shared.module';
+import { SharedModule } from '../shared/shared.module';
+import { ProductListener } from './listeners/product-listener';
 
 @Module({
 imports:[
@@ -11,7 +12,7 @@ imports:[
     SharedModule
   ],
   controllers: [ProductController],
-  providers: [ProductService],
+  providers: [ProductService, ProductListener],
   exports: [TypeOrmModule, ProductService]
 })
 export class ProductModule {}

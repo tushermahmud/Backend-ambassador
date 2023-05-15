@@ -52,9 +52,23 @@ export class AuthController {
     async user(@Req() req:Request):Promise<User>{
         const cookie = req.cookies['token'];
         if(!cookie) throw new UnauthorizedException("Please Login First")
-        const {email} = await this.jwtService.verifyAsync(cookie);
-        const user = await this.userService.findOne(email)
-        return user;
+        const {email,id} = await this.jwtService.verifyAsync(cookie);
+        let user:User = await this.userService.findOne(email);
+        if(req.url === '/api/admin/user') {
+            return user;
+        }
+
+        const ambassador_user:any = await this.userService.find({
+            id:id,
+            relations:['orders', 'orders.order_items']
+        })
+
+        const {orders, password, ...data} = ambassador_user;
+        return {
+            ...data,
+            revenue: ambassador_user.revenue
+        }
+        
     }
 
 
