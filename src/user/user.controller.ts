@@ -1,5 +1,5 @@
 import { ClassSerializerInterceptor, Controller, Get, UseGuards, UseInterceptors } from '@nestjs/common';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { AuthGuard } from '../auth/auth.guard';
 import { UserService } from './user.service';
 
 @Controller()
@@ -11,6 +11,6 @@ export class UserController {
     @UseInterceptors(ClassSerializerInterceptor)
     @Get('admin/ambassadors')
     async ambassadors () {
-        return await this.userService.find({is_ambassador: true});
+        return await this.userService.findAll({is_ambassador: true});
     }
 }

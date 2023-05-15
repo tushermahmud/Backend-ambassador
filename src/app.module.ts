@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
 import { UserModule } from './user/user.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 import { User } from './user/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { ProductModule } from './product/product.module';
@@ -28,6 +29,7 @@ import { SharedModule } from './shared/shared.module';
       entities: [User, Product, Order, OrderItem, Link],
       synchronize: true,
     }),
+    EventEmitterModule.forRoot(),
     UserModule,
     AuthModule,
     ProductModule,

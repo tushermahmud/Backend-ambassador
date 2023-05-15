@@ -17,7 +17,10 @@ export class AbstractService {
     }
 
     async find(options){
-        return await this.repository.find({where: options});
+        return await this.repository.findOne({
+            where: { id: options.id },
+            relations: [...options.relations ] 
+        })
     }
 
     async findById(id){
